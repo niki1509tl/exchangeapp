@@ -2,22 +2,15 @@ import axios from 'axios';
 import { axiosConfig } from 'src/configs/externalApi/http-headers';
 export class ExchangeRateService {
   async getExchangeRate(currencyPair: string): Promise<number> {
-    try {
-      await this.validateData(currencyPair)
-      const source = currencyPair.split('_')[0]
-      const target = currencyPair.split('_')[1]
-      const response = await axios.get(
-        `https://api.apilayer.com/fixer/latest?symbols=${target}&base=${source}`,
-        axiosConfig
-      );
-      const exchangeRate = response.data.rates[target];
-      return exchangeRate;
-    } catch (error) {
-      console.error(
-        `Error retrieving exchange rate for ${currencyPair}: ${error.message}`,
-      );
-      throw new Error('Exchange rate not available');
-    }
+    await this.validateData(currencyPair)
+    const source = currencyPair.split('_')[0]
+    const target = currencyPair.split('_')[1]
+    const response = await axios.get(
+      `https://api.apilayer.com/fixer/latest?symbols=${target}&base=${source}`,
+      axiosConfig
+    );
+    const exchangeRate = response.data.rates[target];
+    return exchangeRate;
   }
 
   private async validateData(currencyPair: string) {
