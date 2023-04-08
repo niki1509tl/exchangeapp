@@ -8,16 +8,11 @@ export class ConversionService {
     ) { }
 
     async convertAmount(data: ConvertValue): Promise<{ amount: number, transactionId: string }> {
-        try {
-            const exchangeRate = await this.exchangeRateService.getExchangeRate(`${data.sourceCurrency}_${data.targetCurrency}`);
-            const amount = Number((data.sourceAmount * exchangeRate).toFixed(2));
-            const transactionId = uuidv4();
-            // TODO save the conversion details to the database
-            return { amount, transactionId };
-        } catch (error) {
-            console.error(`Error converting ${data.sourceAmount} ${data.sourceCurrency} to ${data.targetCurrency}: ${error.message}`);
-            throw new Error('Conversion failed');
-        }
+        const exchangeRate = await this.exchangeRateService.getExchangeRate(`${data.sourceCurrency}_${data.targetCurrency}`);
+        const amount = Number((data.sourceAmount * exchangeRate).toFixed(2));
+        const transactionId = uuidv4();
+        // TODO save the conversion details to the database
+        return { amount, transactionId };
     }
 }
 
