@@ -1,5 +1,6 @@
 import { Catch, ExceptionFilter, ArgumentsHost } from '@nestjs/common';
 import { Response } from 'express';
+import defaultLogger, { Logger } from 'src/business/services/logger.service';
 
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {
@@ -7,6 +8,8 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         const ctx = host.switchToHttp();
         const response = ctx.getResponse<Response>();
 
+        let logger: Logger = defaultLogger
+        logger.logError(error)
         // Handle the error and send a response to the client
         if (error instanceof Error) {
             response.status(400).json({
