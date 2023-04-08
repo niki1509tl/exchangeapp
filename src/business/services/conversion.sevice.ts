@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import defaultExhcnageService, { ExchangeRateService } from './exchangeRates.service';
-import { ConvertValue } from 'src/common/ConvertValue.dto';
+import { ConvertValue } from 'src/common/dto/ConvertValue.dto';
 
 export class ConversionService {
     constructor(
