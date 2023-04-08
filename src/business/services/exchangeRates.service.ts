@@ -14,7 +14,7 @@ export class ExchangeRateService {
   }
 
   private async validateData(currencyPair: string) {
-    if (!currencyPair.includes('_')) throw new Error('Both currencies should be seperated with "_"')
+    if (!currencyPair.includes('_')) throw new Error('Both currencies should be seperated with _')
     const source = currencyPair.split('_')[0]
     const target = currencyPair.split('_')[1]
     const response = await axios.get(
