@@ -13,7 +13,12 @@ export class ValidationPipe implements PipeTransform<any> {
         const errors = await validate(object);
 
         if (errors.length > 0) {
-            throw new BadRequestException('Validation failed');
+            let displayErrors = []
+            errors.forEach(err => {
+                const constraints = Object.values(err.constraints || [])
+                displayErrors = [...constraints, ...displayErrors]
+            })
+            throw new BadRequestException(`Validation failed: ${displayErrors.join(',')}`);
         }
 
         return value;
