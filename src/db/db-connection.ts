@@ -1,5 +1,6 @@
 import { Client } from 'pg';
 import { config } from 'dotenv';
+import { createTransactionQuery } from './schemas/transaction.schema';
 config();
 
 export default class PostgreSQLConnection {
@@ -8,11 +9,7 @@ export default class PostgreSQLConnection {
 
     private constructor() {
         this.client = new Client({
-            user: process.env.DATABASE_USER,
-            host: process.env.DATABASE_HOST,
-            database: process.env.DATABASE_NAME,
-            password: process.env.DATABASE_PASSWORD,
-            port: Number(process.env.DATABASE_PORT),
+            connectionString: process.env.DB_CONNECTION_STRING
         });
     }
 
@@ -29,6 +26,10 @@ export default class PostgreSQLConnection {
             await this.client.connect();
             console.log('Connected to PostgreSQL database');
         }
+    }
+    public async createAllTables() {
+        const result = await this.client.query(createTransactionQuery);
+        return result;
     }
 
     public async query(sql: string): Promise<any> {
