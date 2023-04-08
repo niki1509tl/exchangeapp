@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { axiosConfig } from 'src/configs/http-headers';
-
+import { axiosConfig } from 'src/configs/externalApi/http-headers';
 export class ExchangeRateService {
   async getExchangeRate(currencyPair: string): Promise<number> {
     try {
@@ -32,3 +31,5 @@ export class ExchangeRateService {
     if (!(target in symbols)) throw new Error('Target is not a valid currency symbol')
   }
 }
+
+export default new ExchangeRateService()

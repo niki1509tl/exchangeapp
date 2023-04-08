@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { ExchangeRateService } from './exchangeRates.service';
 
-class ConversionService {
+export class ConversionService {
     constructor(private exchangeRateService: ExchangeRateService) { }
 
     async convertAmount(sourceAmount: number, sourceCurrency: string, targetCurrency: string): Promise<{ amount: number, transactionId: string }> {

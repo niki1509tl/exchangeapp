@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from "axios";
-import dotenv from 'dotenv';
-dotenv.config();
+import { config } from 'dotenv';
+config();
 
 export const axiosConfig: AxiosRequestConfig = {
     headers: {
