@@ -4,11 +4,13 @@ export class ExchangeRateService {
   async getExchangeRate(currencyPair: string): Promise<number> {
     try {
       await this.validateData(currencyPair)
+      const source = currencyPair.split('_')[0]
+      const target = currencyPair.split('_')[1]
       const response = await axios.get(
-        `https://api.apilayer.com/fixer/latest?symbols=${currencyPair}&base=${currencyPair}`,
+        `https://api.apilayer.com/fixer/latest?symbols=${target}&base=${source}`,
         axiosConfig
       );
-      const exchangeRate = response.data.rates[currencyPair];
+      const exchangeRate = response.data.rates[target];
       return exchangeRate;
     } catch (error) {
       console.error(
