@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from "@nestjs/common";
 import defaultConversionService, { ConversionService } from "src/business/services/conversion.sevice";
-import { IConvertValue } from "src/common/IConvertValue";
+import { ConvertValue } from "src/common/ConvertValue.dto";
 
 @Controller({ path: '/api/conversion' })
 export class ConversionController {
@@ -9,7 +9,7 @@ export class ConversionController {
     ) { }
 
     @Post('/convert')
-    async convertValue(@Body() data: IConvertValue) {
+    async convertValue(@Body() data: ConvertValue) {
         return this.conversionService.convertAmount(data)
     }
 }
