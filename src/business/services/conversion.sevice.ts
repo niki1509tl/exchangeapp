@@ -3,6 +3,8 @@ import { ExchangeRateService } from './exchangeRates.service';
 import { ConvertValue } from 'src/common/dto/ConvertValue.dto';
 import { Injectable } from '@nestjs/common';
 import TransactionStorage from 'src/db/transaction.storage';
+import { TransactionEntity } from 'src/db/schemas/transaction.schema';
+import { ConvertionList } from 'src/common/dto/ConvertionList.dto';
 
 @Injectable()
 export class ConversionService {
@@ -11,17 +13,26 @@ export class ConversionService {
         private readonly transactionStorage: TransactionStorage
     ) { }
 
-    async convertAmount(data: ConvertValue): Promise<{ amount: number, transactionId: string }> {
+    async convertAmount(data: ConvertValue): Promise<{ amount: number, transactionid: string }> {
         const exchangeRate = await this.exchangeRateService.getExchangeRate(`${data.sourceCurrency}_${data.targetCurrency}`);
         const amount = Number((data.sourceAmount * exchangeRate).toFixed(2));
-        const transactionId = uuidv4();
+        const transactionid = uuidv4();
         this.transactionStorage.create({
-            transactionId,
+            transactionid,
             created_at: new Date(),
             sourceAmount: amount,
             from: data.sourceCurrency,
             to: data.targetCurrency,
         })
-        return { amount, transactionId };
+        return { amount, transactionid };
+    }
+
+    async getConversions(data: ConvertionList): Promise<{ conversions: TransactionEntity[], totalCount: number }> {
+        if (!data.transactionid && !data.transactionDate) throw new Error('At least one of the following parameters is required: transactionid, transactionDate')
+        if (data.transactionid) {
+            const result = await this.transactionStorage.findBytransactionid(data.transactionid!)
+            return { conversions: result, totalCount: result.length }
+        }
+        if (data.transactionDate) return await this.transactionStorage.findAfterDate(data.transactionDate!, data.page, data.limit)
     }
 }

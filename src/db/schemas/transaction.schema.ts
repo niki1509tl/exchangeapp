@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm"
 @Entity()
 export class TransactionEntity {
     @PrimaryGeneratedColumn()
@@ -12,5 +12,6 @@ export class TransactionEntity {
     @Column()
     to: string
     @Column()
-    transactionId: string
+    @Unique(['transactionid'])
+    transactionid: string
 }

@@ -10,8 +10,18 @@ export default class TransactionStorage {
         private readonly transactionRepository: Repository<TransactionEntity>,
     ) { }
 
-    async findAll(): Promise<TransactionEntity[]> {
-        return await this.transactionRepository.find();
+    async findAfterDate(date: Date, page: number, limit: number): Promise<{ conversions: TransactionEntity[], totalCount: number }> {
+        const conversions = await this.transactionRepository.createQueryBuilder('transactions_entity')
+            .where('transactions_entity.created_at > :date', { date })
+            .skip(page * limit).limit(limit).getMany()
+        const totalCount = await this.transactionRepository.createQueryBuilder('transactions_entity')
+            .where('transactions_entity.created_at > :date', { date }).getCount()
+
+        return { conversions, totalCount }
+    }
+
+    async findBytransactionid(transactionid: string) {
+        return await this.transactionRepository.findBy({ transactionid })
     }
 
     async create(transaction: TransactionEntity): Promise<TransactionEntity> {
