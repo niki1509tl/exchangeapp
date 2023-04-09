@@ -1,6 +1,5 @@
 import { Client } from 'pg';
 import { config } from 'dotenv';
-import { createTransactionQuery } from './schemas/transaction.schema';
 config();
 
 export default class PostgreSQLConnection {
@@ -26,10 +25,6 @@ export default class PostgreSQLConnection {
             await this.client.connect();
             console.log('Connected to PostgreSQL database');
         }
-    }
-    public async createAllTables() {
-        const result = await this.client.query(createTransactionQuery);
-        return result;
     }
 
     public async query(sql: string): Promise<any> {
