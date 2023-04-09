@@ -1,10 +1,10 @@
 import { Controller, Get, Param } from "@nestjs/common";
-import defaultExchangeRateService, { ExchangeRateService } from "src/business/services/exchangeRates.service";
+import { ExchangeRateService } from "src/business/services/exchangeRates.service";
 
 @Controller({ path: '/api/exchange' })
 export class ExchangeRateController {
     constructor(
-        protected exchangeRateService: ExchangeRateService = defaultExchangeRateService
+        private readonly exchangeRateService: ExchangeRateService
     ) { }
 
     @Get('/:currencyPair')

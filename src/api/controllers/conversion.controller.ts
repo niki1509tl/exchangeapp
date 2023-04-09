@@ -1,11 +1,11 @@
 import { Body, Controller, Post } from "@nestjs/common";
-import defaultConversionService, { ConversionService } from "src/business/services/conversion.sevice";
+import { ConversionService } from "src/business/services/conversion.sevice";
 import { ConvertValue } from "src/common/dto/ConvertValue.dto";
 
 @Controller({ path: '/api/conversion' })
 export class ConversionController {
     constructor(
-        protected conversionService: ConversionService = defaultConversionService
+        private readonly conversionService: ConversionService
     ) { }
 
     @Post('/convert')

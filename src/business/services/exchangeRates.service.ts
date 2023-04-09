@@ -1,5 +1,8 @@
+import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { axiosConfig } from 'src/configs/externalApi/http-headers';
+
+@Injectable()
 export class ExchangeRateService {
   async getExchangeRate(currencyPair: string): Promise<number> {
     await this.validateData(currencyPair)
@@ -26,5 +29,3 @@ export class ExchangeRateService {
     if (!(target in symbols)) throw new Error('Target is not a valid currency symbol')
   }
 }
-
-export default new ExchangeRateService()
