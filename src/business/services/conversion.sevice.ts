@@ -16,7 +16,7 @@ export class ConversionService {
         const amount = Number((data.sourceAmount * exchangeRate).toFixed(2));
         const transactionId = uuidv4();
         this.transactionStorage.create({
-            id: transactionId,
+            transactionId,
             created_at: new Date(),
             sourceAmount: amount,
             from: data.sourceCurrency,
