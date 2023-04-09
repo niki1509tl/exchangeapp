@@ -11,11 +11,11 @@ export default class TransactionStorage {
     ) { }
 
     async findAfterDate(date: Date, page: number, limit: number): Promise<{ conversions: TransactionEntity[], totalCount: number }> {
-        const conversions = await this.transactionRepository.createQueryBuilder('transactions_entity')
-            .where('transactions_entity.created_at > :date', { date })
+        const conversions = await this.transactionRepository.createQueryBuilder('transactions')
+            .where('transactions.created_at > :date', { date })
             .skip(page * limit).limit(limit).getMany()
-        const totalCount = await this.transactionRepository.createQueryBuilder('transactions_entity')
-            .where('transactions_entity.created_at > :date', { date }).getCount()
+        const totalCount = await this.transactionRepository.createQueryBuilder('transactions')
+            .where('transactions.created_at > :date', { date }).getCount()
 
         return { conversions, totalCount }
     }
