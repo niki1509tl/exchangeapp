@@ -13,7 +13,7 @@ export class Logger {
 
     public logError(error: Error) {
         const now = new Date();
-        const newLogFile = this.getCurrentLogFile()
+        const newLogFile = `${getProjectPath('src', 'logs')}/${this.getCurrentLogFile()}`
         if (!existsSync(newLogFile)) {
             writeFileSync(newLogFile, '');
         }
