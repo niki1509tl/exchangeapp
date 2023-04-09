@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
 @Entity()
-export class TransactionsEntity {
+export class TransactionEntity {
     @PrimaryGeneratedColumn()
     id?: number
     @Column()
