@@ -20,8 +20,12 @@ describe('ExchangeController', () => {
             expect(exchangeRate).toBeGreaterThan(0);
         });
 
-        it('should throw an error for an invalid currency pair', async () => {
+        it('should throw an error for an invalid currency pair format', async () => {
             await expect(exchangeController.getExchangeRate('wrong format',)).rejects.toThrow();
+        });
+
+        it('should throw an error for an invalid currency pair', async () => {
+            await expect(exchangeController.getExchangeRate('USDt_EURt',)).rejects.toThrow();
         });
 
     });
