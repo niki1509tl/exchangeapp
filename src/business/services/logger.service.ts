@@ -5,7 +5,7 @@ export class Logger {
     private defaultLogName: string = 'error'
 
     constructor() {
-        const file = `${getProjectPath('src', 'logs')}/${this.getCurrentLogFile()}`
+        const file = this.getCurrentLogFile()
         if (!existsSync(file)) {
             writeFileSync(file, '');
         }
@@ -13,7 +13,7 @@ export class Logger {
 
     public logError(error: Error) {
         const now = new Date();
-        const newLogFile = `${getProjectPath('src', 'logs')}/${this.getCurrentLogFile()}`
+        const newLogFile = this.getCurrentLogFile()
         if (!existsSync(newLogFile)) {
             writeFileSync(newLogFile, '');
         }
@@ -29,7 +29,7 @@ export class Logger {
         const now = new Date();
         const month = now.toLocaleString('default', { month: 'long' });
         const year = now.getFullYear();
-        return `${this.defaultLogName}-${month}-${year}.log`;
+        return `${getProjectPath('src', 'logs')}/${this.defaultLogName}-${month}-${year}.log`;
     }
 }
 
