@@ -21,11 +21,22 @@ describe('ExchangeController', () => {
         });
 
         it('should throw an error for an invalid currency pair format', async () => {
-            await expect(exchangeController.getExchangeRate('wrong format',)).rejects.toThrow();
+            try {
+                await exchangeController.getExchangeRate('wrong format')
+                fail('Should have thrown an Error')
+            } catch (err) {
+                expect(err.message).toEqual('Both currencies should be seperated with _')
+            }
+
         });
 
         it('should throw an error for an invalid currency pair', async () => {
-            await expect(exchangeController.getExchangeRate('USDt_EURt',)).rejects.toThrow();
+            try {
+                await exchangeController.getExchangeRate('USDt_EURt')
+                fail('Should have thrown an Error')
+            } catch (err) {
+                expect(err.message).toEqual('Source is not a valid currency symbol')
+            }
         });
 
     });

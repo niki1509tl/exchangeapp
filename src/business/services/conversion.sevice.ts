@@ -14,10 +14,11 @@ export class ConversionService {
     ) { }
 
     async convertAmount(data: ConvertValue): Promise<{ amount: number, transactionid: string }> {
+        if (data.sourceAmount < 0) throw new Error('Amount can not be negative')
         const exchangeRate = await this.exchangeRateService.getExchangeRate(`${data.sourceCurrency}_${data.targetCurrency}`);
         const amount = Number((data.sourceAmount * exchangeRate).toFixed(2));
         const transactionid = uuidv4();
-        this.transactionStorage.create({
+        await this.transactionStorage.create({
             transactionid,
             created_at: new Date(),
             sourceAmount: amount,
