@@ -1,10 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
 import { ExchangeRateService } from './exchangeRates.service';
-import { ConvertValue } from 'src/common/dto/ConvertValue.dto';
+import { ConvertValue } from '../../common/dto/ConvertValue.dto';
 import { Injectable } from '@nestjs/common';
-import TransactionStorage from 'src/db/transaction.storage';
-import { TransactionEntity } from 'src/db/schemas/transaction.schema';
-import { ConvertionList } from 'src/common/dto/ConvertionList.dto';
+import TransactionStorage from '../../db/transaction.storage';
+import { TransactionEntity } from '../../db/schemas/transaction.schema';
+import { ConvertionList } from '../../common/dto/ConvertionList.dto';
 
 @Injectable()
 export class ConversionService {

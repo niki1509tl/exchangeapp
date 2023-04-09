@@ -1,10 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ExchangeRateController } from 'src/api/controllers/exchange/exchange.controller';
-import { TransactionModule } from 'src/api/modules/transactionModule.module';
-import { ExchangeRateService } from 'src/business/services/exchangeRates.service';
+import { ExchangeRateController } from './exchange.controller';
+import { ExchangeRateService } from '../../../business/services/exchangeRates.service';
 
 describe('ExchangeController', () => {
-    let exchangeController: TransactionModule;
+    let exchangeController: ExchangeRateController;
 
     beforeEach(async () => {
         const app: TestingModule = await Test.createTestingModule({
@@ -15,9 +14,15 @@ describe('ExchangeController', () => {
         exchangeController = app.get<ExchangeRateController>(ExchangeRateController);
     });
 
-    describe('root', () => {
-        it('should return "Hello World!"', () => {
-            expect(exchangeController).toBe('Hello World!');
+    describe('getExchangeRate', () => {
+        it('should return the expected exchange rate for a valid currency pair', async () => {
+            const exchangeRate = await exchangeController.getExchangeRate('EUR_USD');
+            expect(exchangeRate).toBeGreaterThan(0);
         });
+
+        it('should throw an error for an invalid currency pair', async () => {
+            await expect(exchangeController.getExchangeRate('wrong format',)).rejects.toThrow();
+        });
+
     });
 });

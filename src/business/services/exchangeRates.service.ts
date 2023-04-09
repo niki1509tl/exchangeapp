@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
-import { axiosConfig } from 'src/configs/externalApi/http-headers';
+import { axiosConfig } from '../../configs/externalApi/http-headers';
 
 @Injectable()
 export class ExchangeRateService {

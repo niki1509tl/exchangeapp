@@ -1,5 +1,5 @@
 import { existsSync, writeFileSync, appendFile } from 'fs';
-import { getProjectPath } from 'src/utils/paths.utils';
+import { getProjectPath } from '../../utils/paths.utils';
 
 export class Logger {
     private defaultLogName: string = 'error'

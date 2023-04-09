@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from "@nestjs/common";
-import { ConversionService } from "src/business/services/conversion.sevice";
-import { ConvertValue } from "src/common/dto/ConvertValue.dto";
-import { ConvertionList } from "src/common/dto/ConvertionList.dto";
+import { ConversionService } from "../../../business/services/conversion.sevice";
+import { ConvertValue } from "../../..//common/dto/ConvertValue.dto";
+import { ConvertionList } from "../../..//common/dto/ConvertionList.dto";
 
 @Controller({ path: '/api/conversion' })
 export class ConversionController {
